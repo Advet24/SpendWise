@@ -28,6 +28,43 @@ export const registerUser = async (req, res) => {
 
 }
 
+export const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const user = await UserService.getUserByEmail(email);
+        if (!userEmailCheck) {
+            return res.status(400).json({ message: "Invalid email" });
+        }
+
+        const isPasswordValid = await UserService.verifyPassword(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: "Invalid password" });
+        }
+
+        res.json({
+            success: true,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+            },
+        });
+
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+
+
+
 export const getAllUser = async (req, res) => {
     try {
         const users = await UserService.getUsers();

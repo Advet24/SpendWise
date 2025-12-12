@@ -34,6 +34,11 @@ export const UserService = {
             where id = ? 
         ` , [id]);
         return rows[0];
+    },
+
+    async verifyPassword(plain, hashed) {
+        return await bcrypt.compare(plain, hashed);
     }
+
 
 }
