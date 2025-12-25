@@ -5,40 +5,40 @@ export const UserService = {
 
     async getUsers() {
         const [rows] = await pool.query(`
-            select id , name , email , createdAt 
-            from user`)
+            SELECT id, name, email, createdAt 
+            FROM users
+        `);
         return rows;
     },
 
     async createUser(name, email, password) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const [result] = await pool.query(`
-            insert into user (name , email , password)
-            values ( ? , ? , ? )
-        ` , [name, email, hashedPassword]);
+            INSERT INTO users (name, email, password)
+            VALUES (?, ?, ?)
+        `, [name, email, hashedPassword]);
+
         return { id: result.insertId, name, email };
     },
 
     async getUserByEmail(email) {
         const [rows] = await pool.query(`
-            select * from user
-            where email = ? 
-        ` , [email]);
+            SELECT * FROM users
+            WHERE email = ?
+        `, [email]);
         return rows[0];
     },
 
     async getUserById(id) {
         const [rows] = await pool.query(`
-            select id , name , email , createdAt 
-            from user
-            where id = ? 
-        ` , [id]);
+            SELECT id, name, email, createdAt 
+            FROM users
+            WHERE id = ?
+        `, [id]);
         return rows[0];
     },
 
     async verifyPassword(plain, hashed) {
-        return await bcrypt.compare(plain, hashed);
+        return bcrypt.compare(plain, hashed);
     }
-
-
-}
+};

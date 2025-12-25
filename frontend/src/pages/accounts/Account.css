@@ -1,0 +1,168 @@
+.page-container {
+  padding: 24px;
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.page-header h2 {
+  margin: 0;
+}
+
+.subtitle {
+  color: gray;
+  margin-top: 4px;
+}
+
+.primary-btn {
+  background: #0f172a;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.account-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.account-table th {
+  text-align: left;
+  padding: 12px;
+  color: gray;
+  font-size: 14px;
+}
+
+.account-table td {
+  padding: 12px;
+  border-top: 1px solid #eee;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.danger-btn {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+}
+/* ---------- MODAL OVERLAY ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+/* ---------- MODAL BOX ---------- */
+.modal {
+  background: white;
+  padding: 22px 26px;
+  border-radius: 14px;
+  width: 400px;
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+  animation: fadeUp .25s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.modal h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.modal .subtitle {
+  color: gray;
+  margin-bottom: 15px;
+}
+
+/* ---------- FORM ---------- */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.form-row label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-row input,
+.form-row select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  outline: none;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  border-color: #0f172a;
+}
+
+/* ---------- BUTTONS ---------- */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cancel-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #f3f4f6;
+}
+.danger-filled-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+.danger-filled-btn:hover {
+  opacity: 0.9;
+}
+
+.delete-modal h3 {
+  color: #b91c1c;
+}

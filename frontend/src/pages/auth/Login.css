@@ -77,7 +77,7 @@
     width: 100%;
     padding: 12px;
 
-    background: rgba(79, 70, 229, 0.85);
+    background: rgba(0, 0, 0, 0.85);
     color: white;
     font-size: 15px;
     font-weight: 600;
@@ -91,7 +91,7 @@
 }
 
 .login-button:hover {
-    background: rgba(67, 56, 202, 0.9);
+    background: rgba(0, 0, 0, 0.9);
 }
 
 .login-footer {

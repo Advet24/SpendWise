@@ -1,0 +1,93 @@
+.nf-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  gap: 18px;
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+}
+
+/* RECEIPT CARD */
+.receipt {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  width: 320px;
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.07);
+  animation: float 2.5s ease-in-out infinite;
+}
+
+.top-edge {
+  width: 90%;
+  margin: 0 auto 12px auto;
+  border-top: 8px dashed #e5e7eb;
+}
+
+.receipt h1 {
+  margin: 0;
+  font-size: 44px;
+  color: #0f172a;
+}
+
+.lost {
+  margin: 4px 0 6px 0;
+}
+
+.small {
+  color: gray;
+  font-size: 14px;
+}
+
+/* FLOATING COINS */
+.coins {
+  position: relative;
+}
+
+.coin {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: gold;
+  color: #0f172a;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  position: absolute;
+}
+
+.c1 { left: -90px; top: 20px; animation: spin 3s infinite linear; }
+.c2 { right: -90px; top: -10px; animation: spin 2.4s infinite linear; }
+.c3 { right: -60px; top: 60px; animation: spin 2.8s infinite linear; }
+
+@keyframes spin {
+  0% { transform: rotate(0deg) translateY(0px); }
+  50% { transform: rotate(180deg) translateY(-6px); }
+  100% { transform: rotate(360deg) translateY(0px); }
+}
+
+/* RECEIPT FLOATING */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+/* BUTTON */
+.home-btn {
+  margin-top: 6px;
+  text-decoration: none;
+  background: #0f172a;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+.home-btn:hover {
+  opacity: .9;
+}

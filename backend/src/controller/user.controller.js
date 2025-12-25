@@ -1,3 +1,4 @@
+import { generateToken } from "../service/token.service.js";
 import { UserService } from "../service/user.service.js";
 
 export const registerUser = async (req, res) => {
@@ -37,7 +38,7 @@ export const loginUser = async (req, res) => {
         }
 
         const user = await UserService.getUserByEmail(email);
-        if (!userEmailCheck) {
+        if (!user) {
             return res.status(400).json({ message: "Invalid email" });
         }
 
@@ -46,8 +47,19 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ message: "Invalid password" });
         }
 
+
+        const token = generateToken({
+            id: user.id,
+            email: user.email
+        })
+
+        console.log('token' , token);
+        
+
         res.json({
             success: true,
+            message: "Login successful",
+            token: token,
             user: {
                 id: user.id,
                 name: user.name,

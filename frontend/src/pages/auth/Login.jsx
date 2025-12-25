@@ -27,14 +27,17 @@ function Login() {
                 email: formData.email,
                 password: formData.password,
             });
+            
+            const {token , user} = res.data;
 
             if (res.data.success) {
                 toast.success("Login successful!");
 
-                // Later you will store token here (after adding JWT)
-                // localStorage.setItem("token", res.data.token);
 
-                navigate("/dashboard"); // OR wherever you want
+                localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(user));
+
+                navigate("/");
             }
         } catch (error) {
             console.log(error);
@@ -84,7 +87,7 @@ function Login() {
 
                 <p className="login-footer">
                     Don’t have an account?
-                    <Link to="/"> Register</Link>
+                    <Link to="/register"> Register</Link>
                 </p>
             </div>
         </div>
