@@ -10,6 +10,7 @@ import Account from './pages/accounts/Account'
 import Report from './pages/reports/Report'
 import NotFound from './pages/notfound/NotFound'
 import Transaction from './pages/transaction/Transaction'
+import SubCategory from './pages/category/SubCategory'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/transaction" element={<Transaction />} />
           <Route path="/addtransaction" element={<AddTransaction />} />
           <Route path="/category" element={<Category />} />
+          <Route path="/subcategories" element={<SubCategory />} />
           <Route path="/account" element={<Account />} />
           <Route path='/report' element={<Report />} />
           <Route path="*" element={<NotFound />} />

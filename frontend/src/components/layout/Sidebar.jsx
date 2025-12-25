@@ -37,6 +37,7 @@ function Sidebar() {
         <p>MANAGE</p>
         <NavLink to="/account"><FiCreditCard /> <span>Accounts</span></NavLink>
         <NavLink to="/category"><FiTag /> <span>Categories</span></NavLink>
+        <NavLink to="/subcategories"><FiTag /> <span>Sub-Categories</span></NavLink>
         <NavLink to="/report"><FiBarChart2 /> <span>Reports</span></NavLink>
 
         <p>SYSTEM</p>

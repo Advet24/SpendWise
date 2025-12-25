@@ -1,0 +1,152 @@
+.cat-container {
+    padding: 15px;
+    margin-bottom: 15px;
+    font-family: Calibri, Arial, Helvetica, sans-serif;
+}
+
+.subtitle {
+    color: gray;
+}
+
+.cat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.primary-btn {
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.cat-card {
+    background: white;
+    margin-top: 15px;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+}
+
+.cat-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cat-table th,
+.cat-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.cat-table th {
+    color: gray;
+}
+
+.green {
+    color: green;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}
+
+.link-btn {
+    border: none;
+    background: none;
+    color: #2563eb;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
+
+/* MODAL */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    width: 400px;
+}
+
+.modal.small {
+    width: 350px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    outline: none;
+}
+
+.danger-btn {
+    background: none;
+    color: #dc2626;
+    cursor: pointer;
+}
+
+/* buttons */
+
+.btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cancel {
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: white;
+    cursor: pointer;
+}
+
+.cancel:hover {
+    background: #f3f4f6;
+}
+
+.danger-modal-btn {
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: none;
+    background: #dc2626;
+    color: white;
+    cursor: pointer;
+}
+
+.danger-modal-btn:hover {
+    opacity: 0.9;
+}
+
+.delete-modal h3 {
+    color: #b91c1c;
+}
+
+.save {
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}

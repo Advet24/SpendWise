@@ -13,6 +13,7 @@ function Navbar() {
         "/addtransaction": "Add Entry",
         "/account": "Accounts",
         "/category": "Categories",
+        "/subcategories": "Sub-Categories",
         "/report": "Reports"
     };
 
@@ -22,6 +23,7 @@ function Navbar() {
         "/addtransaction": "Overview",
         "/account": "Manage",
         "/category": "Manage",
+        "/subcategories": "Manage",
         "/report": "Manage"
     }
 

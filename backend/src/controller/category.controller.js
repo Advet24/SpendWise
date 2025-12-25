@@ -8,12 +8,12 @@ export const CategoryController = {
     },
 
     async create(req, res) {
-        const { name, type } = req.body;
+        const { categoryName, categoryType } = req.body;
 
         const id = await CategoryService.createCategory(
             req.user.id,
-            name,
-            type
+            categoryName,
+            categoryType
         );
 
         res.json({ id });
@@ -23,8 +23,8 @@ export const CategoryController = {
         const success = await CategoryService.updateCategory(
             req.params.id,
             req.user.id,
-            req.body.name,
-            req.body.type
+            req.body.categoryName,
+            req.body.categoryType
         );
 
         res.json({ success });

@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.use(auth);
 
-router.get("/", CategoryController.list);
-router.post("/", CategoryController.create);
+router.get("/",auth , CategoryController.list);
+router.post("/add", CategoryController.create);
 router.put("/:id", CategoryController.update);
 router.delete("/:id", CategoryController.remove);
 
