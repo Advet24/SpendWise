@@ -2,11 +2,49 @@ import pool from "../config/db.js";
 
 export const SubCategoryService = {
 
+
+  async getAllSubCategories(userId, limit, offset) {
+
+    // data query
+    const [rows] = await pool.query(`
+    SELECT 
+      s.id,
+      s.categoryId,
+      s.subCategoryName,
+      s.createdAt,
+      c.categoryName
+    FROM subCategories s
+    JOIN categories c ON s.categoryId = c.id
+    WHERE c.userId = ?
+    LIMIT ? OFFSET ?
+  `, [userId, limit, offset]);
+
+
+    // count query
+    const [[{ total }]] = await pool.query(`
+    SELECT COUNT(*) AS total
+    FROM subCategories s
+    JOIN categories c ON s.categoryId = c.id
+    WHERE c.userId = ?
+  `, [userId]);
+
+    return { rows, total };
+  },
+
+
   async getByCategory(categoryId, userId) {
     const [rows] = await pool.query(
-      `SELECT s.* FROM subCategories s
-       JOIN categories c ON s.categoryId = c.id
-       WHERE c.id = ? AND c.userId = ?`,
+      `SELECT 
+        s.id,
+        s.categoryId,
+        s.subCategoryName,
+        s.createdAt,
+        c.categoryName
+     FROM subCategories s
+     JOIN categories c 
+       ON s.categoryId = c.id
+     WHERE s.categoryId = ? 
+       AND c.userId = ?`,
       [categoryId, userId]
     );
     return rows;

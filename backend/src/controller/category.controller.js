@@ -3,9 +3,29 @@ import { CategoryService } from "../service/category.service.js";
 export const CategoryController = {
 
     async list(req, res) {
-        const data = await CategoryService.getCategories(req.user.id);
-        res.json(data);
-    },
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 4;
+
+        const { rows, total } = await CategoryService.getCategories(
+            req.user.id,
+            page,
+            limit
+        );
+
+        res.json({
+            success: true,
+            data: rows,
+            page,
+            totalPages: Math.ceil(total / limit),
+            totalItems: total
+        });
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+}
+,
 
     async create(req, res) {
         const { categoryName, categoryType } = req.body;

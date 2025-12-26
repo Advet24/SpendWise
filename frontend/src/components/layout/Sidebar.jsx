@@ -45,14 +45,7 @@ function Sidebar() {
 
       </div>
 
-      <div className="profile">
-        <div className="avatar">AD</div>
-
-        <div className="user-info">
-          <p>Alex Doe</p>
-          <span>Pro Plan</span>
-        </div>
-      </div>
+     
 
     </div>
   );

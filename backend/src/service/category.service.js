@@ -2,13 +2,31 @@ import pool from "../config/db.js";
 
 export const CategoryService = {
 
-    async getCategories(userId) {
-        const [rows] = await pool.query(
-            `SELECT * FROM categories WHERE userId = ?`,
+    async getCategories(userId, page, limit) {
+
+        const offset = (page - 1) * limit;
+
+        // get total count
+        const [[{ count }]] = await pool.query(
+            `SELECT COUNT(*) AS count 
+         FROM categories 
+         WHERE userId = ?`,
             [userId]
         );
-        return rows;
-    },
+
+        // paginated list
+        const [rows] = await pool.query(
+            `SELECT *
+         FROM categories
+         WHERE userId = ?
+         ORDER BY createdAt DESC
+         LIMIT ? OFFSET ?`,
+            [userId, limit, offset]
+        );
+
+        return { rows, total: count };
+    }
+    ,
 
     async createCategory(userId, name, type) {
         const [result] = await pool.query(

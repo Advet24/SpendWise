@@ -7,8 +7,9 @@ const router = express.Router();
 
 router.use(auth);
 
-router.get("/:categoryId", SubCategoryController.getByCategory);
+router.get("/", SubCategoryController.getAllSubCategory);
 router.post("/", SubCategoryController.create);
+router.get("/:categoryId", SubCategoryController.getByCategory);
 router.put("/:id", SubCategoryController.update);
 router.delete("/:id", SubCategoryController.delete);
 

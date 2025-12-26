@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 
 const CAT_URL = "http://localhost:3000/api/categories/";
 
-
 function Category() {
 
     const [showAdd, setShowAdd] = useState(false);
@@ -24,29 +23,33 @@ function Category() {
     const [editCategoryName, setEditCategoryName] = useState("");
     const [editCategoryType, setEditCategoryType] = useState("");
 
+    // PAGINATION
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const limit = 4;
+
 
     useEffect(() => {
         fetchCategories();
-    }, []);
+    }, [page]);
+
 
     const fetchCategories = async () => {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await axios.get(CAT_URL, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            localStorage.setItem("categories", JSON.stringify(res.data));
+            const res = await axios.get(
+                `${CAT_URL}?page=${page}&limit=${limit}`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
-            console.log("response", res);
-            const data = res.data;
+            setCategories(res.data.data);
+            setTotalPages(res.data.totalPages);
 
-            console.log("raw data", data);
-
-            setCategories(data);
 
         } catch (err) {
             console.error(err);
+            toast.error("Failed to load categories");
         }
     };
 
@@ -63,35 +66,29 @@ function Category() {
 
     const handleAddCategory = async () => {
         try {
-
             if (!categoryName || !categoryType) {
                 toast.error("Please fill in all fields");
                 return;
             }
+
             const token = localStorage.getItem("token");
 
-            const payload = {
-                categoryName,
-                categoryType
-            };
-            console.log("Payload:", payload);
+            await axios.post(
+                CAT_URL + "add",
+                { categoryName, categoryType },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
-            await axios.post(CAT_URL + "add", payload, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            });
-
-            console.log("Category added successfully");
-            toast.success("Category added successfully");
-            fetchCategories();
+            toast.success("Category added");
             setShowAdd(false);
+            setCategoryName("");
+            setCategoryType("");
+
+            fetchCategories();
 
         } catch (error) {
-            console.error("Error adding category:", error);
+            console.error(error);
             toast.error("Failed to add category");
-
         }
     }
 
@@ -100,25 +97,19 @@ function Category() {
         try {
             const token = localStorage.getItem("token");
 
-            const payload = {
-                categoryName: editCategoryName,
-                categoryType: editCategoryType
-            };
+            await axios.put(
+                CAT_URL + selected.id,
+                { categoryName: editCategoryName, categoryType: editCategoryType },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
-            await axios.put(CAT_URL + selected.id, payload, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            });
-            toast.success("Category updated successfully");
-            fetchCategories();
+            toast.success("Updated successfully");
             setShowEdit(false);
+            fetchCategories();
 
         } catch (error) {
-            console.error("Error updating category:", error);
+            console.error(error);
             toast.error("Failed to update category");
-
         }
     }
 
@@ -127,30 +118,20 @@ function Category() {
         try {
             const token = localStorage.getItem("token");
 
-            await axios.delete(CAT_URL + categoryToDelete.id, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
+            await axios.delete(
+                CAT_URL + categoryToDelete.id,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
-            toast.success("Category deleted successfully");
-            fetchCategories();
+            toast.success("Deleted successfully");
             setShowDelete(false);
+            fetchCategories();
 
         } catch (error) {
-            console.error("Error deleting category:", error);
+            console.error(error);
             toast.error("Failed to delete category");
         }
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -195,17 +176,25 @@ function Category() {
                                     </td>
                                     <td>{formatDate(cat.createdAt)}</td>
                                     <td>
-                                        <button className="link-btn"
+                                        <button
+                                            className="link-btn"
                                             onClick={() => {
                                                 setSelected(cat);
                                                 setEditCategoryName(cat.categoryName);
                                                 setEditCategoryType(cat.categoryType);
                                                 setShowEdit(true);
-                                            }}>Edit</button>
-                                        <button className="danger-btn" onClick={() => {
-                                            setCategoryToDelete(cat);
-                                            setShowDelete(true);
-                                        }}>Delete</button>
+                                            }}>
+                                            Edit
+                                        </button>
+
+                                        <button
+                                            className="danger-btn"
+                                            onClick={() => {
+                                                setCategoryToDelete(cat);
+                                                setShowDelete(true);
+                                            }}>
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -216,7 +205,28 @@ function Category() {
 
                 </div>
 
+
+                {/* PAGINATION */}
+                <div className="pagination">
+                    <button
+                        disabled={page === 1}
+                        onClick={() => setPage(page - 1)}
+                    >
+                        Prev
+                    </button>
+
+                    <span>{page} / {totalPages}</span>
+
+                    <button
+                        disabled={page === totalPages}
+                        onClick={() => setPage(page + 1)}
+                    >
+                        Next
+                    </button>
+                </div>
+
             </div>
+
 
 
             {/* ADD MODAL */}
@@ -256,6 +266,7 @@ function Category() {
             )}
 
 
+
             {/* EDIT MODAL */}
             {showEdit && selected && (
                 <div className="modal-overlay">
@@ -265,13 +276,18 @@ function Category() {
 
                         <div className="form-group">
                             <label>Name</label>
-                            <input value={editCategoryName}
-                                onChange={e => setEditCategoryName(e.target.value)} />
+                            <input
+                                value={editCategoryName}
+                                onChange={e => setEditCategoryName(e.target.value)}
+                            />
                         </div>
 
                         <div className="form-group">
                             <label>Type</label>
-                            <select value={editCategoryType} onChange={e => setEditCategoryType(e.target.value)}>
+                            <select
+                                value={editCategoryType}
+                                onChange={e => setEditCategoryType(e.target.value)}
+                            >
                                 <option value="INCOME">Income</option>
                                 <option value="EXPENSE">Expense</option>
                             </select>
@@ -285,6 +301,7 @@ function Category() {
                     </div>
                 </div>
             )}
+
 
 
             {/* DELETE CONFIRM */}

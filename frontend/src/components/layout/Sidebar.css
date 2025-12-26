@@ -66,9 +66,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #eee;
-  margin-top: 20px;
 }
 
 .avatar {

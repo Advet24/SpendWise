@@ -117,3 +117,43 @@
 .delete-modal h3 {
     color: #b91c1c;
 }
+
+.pagination {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+}
+
+/* Buttons */
+.pagination button {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all .2s ease-in-out;
+}
+
+/* Hover */
+.pagination button:hover:not(:disabled) {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+/* Disabled */
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Page indicator */
+.pagination span {
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}

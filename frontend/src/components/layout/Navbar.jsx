@@ -31,6 +31,29 @@ function Navbar() {
 
     const currentTitle = pageTitles[location.pathname] || "";
 
+    const user = localStorage.getItem("user");
+    console.log(user);
+
+    const profileName = user ? JSON.parse(user).name : "User";
+    console.log(profileName);
+
+
+
+
+
+
+    const getInitials = (name = "") => {
+        const parts = name.trim().split(" ").filter(Boolean);
+
+        if (parts.length === 0) return "";
+        if (parts.length === 1) return parts[0][0].toUpperCase();
+
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+    };
+
+
+
+
     return (
         <div className="navbar">
 
@@ -51,6 +74,18 @@ function Navbar() {
                     <span className="dot"></span>
                 </div>
 
+                <div className="profile">
+                    <div className="avatar">
+                        {getInitials(profileName)}
+                    </div>
+
+                    <div className="user-info">
+                        <p>
+                            {profileName}
+                        </p>
+                        <span>Pro Plan</span>
+                    </div>
+                </div>
             </div>
         </div>
     );

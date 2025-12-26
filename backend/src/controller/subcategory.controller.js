@@ -2,11 +2,41 @@ import { SubCategoryService } from "../service/subcategory.service.js";
 
 export const SubCategoryController = {
 
+  async getAllSubCategory(req, res) {
+    try {
+      const userId = req.user.id;
+
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+      const offset = (page - 1) * limit;
+
+      const {
+        rows,
+        total
+      } = await SubCategoryService.getAllSubCategories(userId, limit, offset);
+
+      res.json({
+        success: true,
+        data: rows,
+        page,
+        totalPages: Math.ceil(total / limit),
+        total
+      });
+
+    } catch (err) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+
+
   async getByCategory(req, res) {
     try {
       const { categoryId } = req.params;
       const userId = req.user.id;
 
+      console.log("USER ID:", req.user.id);
+      console.log("CATEGORY ID:", categoryId);
       const data = await SubCategoryService.getByCategory(categoryId, userId);
 
       res.json({ success: true, data });
